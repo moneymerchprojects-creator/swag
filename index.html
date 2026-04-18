@@ -234,17 +234,7 @@ async function callClaude(text,images){
   return JSON.parse(raw.replace(/```json|```/g,'').trim());
 }
 
-async function gApi(token,url,method,body){
-  const r=await fetch(url,{
-    method,
-    headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
-    body:(body&&method!=='GET')?JSON.stringify(body):undefined
-  });
-  return r.json();
-}
-
 async function createSheet(clientName,setName,comps){
-  const token=await getGoogleToken();
   const total=comps.reduce((s,c)=>s+(parseFloat(c.cost_per_unit)||0),0);
   const rows=[
     ['','','','','','','','','Стоимость в руб/шт за ед (себес)','','','Сроки (обязательно в рабочих днях)','','',''],
@@ -253,19 +243,14 @@ async function createSheet(clientName,setName,comps){
     Array(15).fill(''),
     ['','Итого:','','','','','','','','','','','','','']
   ];
-  const date=new Date().toLocaleDateString('ru-RU');
-
-  const ss=await gApi(token,'https://sheets.googleapis.com/v4/spreadsheets','POST',{
-    properties:{title:`Спецификация_${clientName}_${date}`},
-    sheets:[{properties:{title:'Спецификация'}}]
+  const r=await fetch(`${WORKER}?target=createsheet`,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({clientName,setName,rows})
   });
-  if(!ss.spreadsheetId)throw new Error(JSON.stringify(ss));
-  const id=ss.spreadsheetId;
-
-  await gApi(token,`https://sheets.googleapis.com/v4/spreadsheets/${id}/values/Спецификация!A1?valueInputOption=USER_ENTERED`,'PUT',{values:rows});
-  await gApi(token,`https://www.googleapis.com/drive/v3/files/${id}?addParents=${FOLDER_ID}&removeParents=root&fields=id`,'PATCH',{});
-
-  return `https://docs.google.com/spreadsheets/d/${id}`;
+  const d=await r.json();
+  if(d.error)throw new Error(JSON.stringify(d.error));
+  return d.url;
 }
 
 async function handleSend(){
