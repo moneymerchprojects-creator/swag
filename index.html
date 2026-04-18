@@ -235,10 +235,10 @@ async function callClaude(text,images){
 }
 
 async function gApi(token,url,method,body){
-  const r=await fetch(`${WORKER}?target=gapi`,{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({token,url,method,body:body||null})
+  const r=await fetch(url,{
+    method,
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+    body:(body&&method!=='GET')?JSON.stringify(body):undefined
   });
   return r.json();
 }
