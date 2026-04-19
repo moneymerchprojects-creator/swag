@@ -9,80 +9,110 @@
 <style>
 :root{--bg:#080808;--surface:#111;--border:#222;--accent:#c6f135;--text:#fff;--muted:#555;--radius:16px;}
 *{box-sizing:border-box;margin:0;padding:0;}
-html,body{height:100%;}
-body{background:var(--bg);color:var(--text);font-family:'Space Mono',monospace;display:flex;flex-direction:column;height:100vh;overflow:hidden;}
-header{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;border-bottom:1px solid var(--border);flex-shrink:0;}
-.logo-area{display:flex;align-items:center;gap:14px;}
-.logo-text{font-family:'Unbounded',sans-serif;font-weight:900;font-size:14px;letter-spacing:0.05em;color:var(--accent);line-height:1.1;}
-.logo-sub{font-size:9px;color:var(--muted);letter-spacing:0.15em;margin-top:2px;}
-.status-dot{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);letter-spacing:0.08em;}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+html,body{height:100%;overflow:hidden;}
+body{background:var(--bg);color:var(--text);font-family:'Space Mono',monospace;display:flex;flex-direction:column;height:100vh;}
 
-/* AUTH SCREEN */
+/* HEADER */
+header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.logo-area{display:flex;align-items:center;gap:12px;}
+.logo-text{font-family:'Unbounded',sans-serif;font-weight:900;font-size:13px;letter-spacing:0.05em;color:var(--accent);line-height:1.1;}
+.logo-sub{font-size:8px;color:var(--muted);letter-spacing:0.15em;margin-top:2px;}
+.header-right{display:flex;align-items:center;gap:12px;}
+.connected-badge{font-size:10px;color:var(--accent);letter-spacing:0.08em;display:flex;align-items:center;gap:6px;}
+.connected-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.signout-btn{font-size:10px;color:var(--muted);background:none;border:1px solid var(--border);border-radius:6px;padding:3px 8px;cursor:pointer;font-family:'Space Mono',monospace;letter-spacing:0.06em;}
+.signout-btn:hover{color:#fff;border-color:#444;}
+
+/* AUTH */
 .auth-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:20px;padding:40px;text-align:center;}
 .auth-screen h2{font-family:'Unbounded',sans-serif;font-size:18px;font-weight:900;color:var(--accent);}
 .auth-screen p{font-size:12px;color:var(--muted);line-height:1.8;max-width:320px;}
 .google-btn{display:flex;align-items:center;gap:10px;background:#fff;color:#000;border:none;border-radius:10px;padding:12px 24px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Space Mono',monospace;transition:all 0.2s;}
-.google-btn:hover{transform:scale(1.02);box-shadow:0 4px 20px rgba(198,241,53,0.2);}
+.google-btn:hover{transform:scale(1.02);}
 .google-btn svg{width:18px;height:18px;}
 
+/* MAIN LAYOUT */
+.app{display:none;flex:1;overflow:hidden;flex-direction:row;}
+.app.visible{display:flex;}
+
+/* SIDEBAR */
+.sidebar{width:220px;border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;}
+.sidebar-header{padding:12px;border-bottom:1px solid var(--border);}
+.new-tab-btn{width:100%;padding:8px;font-size:10px;font-family:'Unbounded',sans-serif;font-weight:700;letter-spacing:0.08em;background:var(--accent);color:#000;border:none;border-radius:8px;cursor:pointer;transition:all 0.15s;}
+.new-tab-btn:hover{background:#d4ff4a;}
+.tabs-list{flex:1;overflow-y:auto;padding:8px;}
+.tab-item{padding:10px 10px;border-radius:8px;cursor:pointer;margin-bottom:4px;border:1px solid transparent;transition:all 0.15s;position:relative;}
+.tab-item:hover{background:var(--surface);border-color:var(--border);}
+.tab-item.active{background:var(--surface);border-color:#333;}
+.tab-name{font-size:11px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px;}
+.tab-meta{font-size:9px;color:var(--muted);letter-spacing:0.06em;}
+.tab-delete{position:absolute;top:8px;right:8px;font-size:12px;color:var(--muted);opacity:0;cursor:pointer;background:none;border:none;line-height:1;}
+.tab-item:hover .tab-delete{opacity:1;}
+.tab-delete:hover{color:#e05;}
+
+/* MAIN CONTENT */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+
 /* CHAT */
-.chat-wrap{flex:1;overflow-y:auto;padding:28px;display:flex;flex-direction:column;gap:16px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
-.chat-wrap::-webkit-scrollbar{width:4px;}
+.chat-wrap{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+.chat-wrap::-webkit-scrollbar{width:3px;}
 .chat-wrap::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
-.msg{max-width:680px;display:flex;flex-direction:column;gap:6px;animation:fadeUp 0.3s ease;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.msg{max-width:640px;display:flex;flex-direction:column;gap:5px;animation:fadeUp 0.3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .msg.user{align-self:flex-end;align-items:flex-end;}
 .msg.bot{align-self:flex-start;align-items:flex-start;}
-.msg-label{font-size:10px;letter-spacing:0.12em;color:var(--muted);padding:0 4px;}
-.msg-bubble{padding:14px 18px;border-radius:var(--radius);font-size:13px;line-height:1.7;white-space:pre-wrap;word-break:break-word;}
-.msg.user .msg-bubble{background:#161616;border:1px solid var(--border);border-bottom-right-radius:4px;color:#ccc;}
-.msg.bot .msg-bubble{background:#0f1a00;border:1px solid #1e2e00;border-bottom-left-radius:4px;color:var(--accent);}
+.msg-label{font-size:9px;letter-spacing:0.12em;color:var(--muted);padding:0 4px;}
+.msg-bubble{padding:12px 16px;border-radius:14px;font-size:12px;line-height:1.7;white-space:pre-wrap;word-break:break-word;}
+.msg.user .msg-bubble{background:#161616;border:1px solid var(--border);border-bottom-right-radius:3px;color:#ccc;}
+.msg.bot .msg-bubble{background:#0f1a00;border:1px solid #1e2e00;border-bottom-left-radius:3px;color:var(--accent);}
 .msg-bubble a{color:var(--accent);text-decoration:underline;word-break:break-all;}
-.msg-img{max-width:240px;border-radius:10px;border:1px solid var(--border);margin-top:4px;}
-.typing-dots{display:flex;gap:5px;align-items:center;padding:6px 0;}
-.typing-dots span{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:bounce 1.2s infinite;}
+.msg-img{max-width:200px;border-radius:8px;border:1px solid var(--border);margin-top:4px;}
+.typing-dots{display:flex;gap:4px;align-items:center;padding:4px 0;}
+.typing-dots span{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:bounce 1.2s infinite;}
 .typing-dots span:nth-child(2){animation-delay:0.2s}
 .typing-dots span:nth-child(3){animation-delay:0.4s}
 @keyframes bounce{0%,80%,100%{transform:scale(0.6);opacity:0.4}40%{transform:scale(1);opacity:1}}
-.welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;text-align:center;gap:16px;padding:40px;}
-.welcome h2{font-family:'Unbounded',sans-serif;font-size:20px;font-weight:900;color:var(--accent);}
-.welcome p{font-size:12px;color:var(--muted);line-height:1.8;max-width:380px;}
-.welcome-tags{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;}
-.tag{font-size:10px;letter-spacing:0.08em;padding:5px 12px;border:1px solid var(--border);border-radius:100px;color:var(--muted);cursor:pointer;transition:all 0.2s;}
+
+/* EMPTY STATE */
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:12px;text-align:center;padding:40px;}
+.empty-state h3{font-family:'Unbounded',sans-serif;font-size:14px;font-weight:700;color:var(--accent);}
+.empty-state p{font-size:11px;color:var(--muted);line-height:1.8;max-width:300px;}
+.example-tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:8px;}
+.tag{font-size:9px;letter-spacing:0.06em;padding:4px 10px;border:1px solid var(--border);border-radius:100px;color:var(--muted);cursor:pointer;transition:all 0.2s;}
 .tag:hover{border-color:var(--accent);color:var(--accent);}
 
+/* NO TAB STATE */
+.no-tab-state{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:12px;text-align:center;padding:40px;}
+.no-tab-state h3{font-family:'Unbounded',sans-serif;font-size:14px;color:var(--muted);}
+
 /* INPUT */
-.input-area{flex-shrink:0;border-top:1px solid var(--border);padding:14px 28px 18px;}
-.input-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);display:flex;flex-direction:column;max-width:800px;margin:0 auto;}
+.input-area{flex-shrink:0;border-top:1px solid var(--border);padding:12px 20px 14px;}
+.input-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);display:flex;flex-direction:column;transition:border-color 0.2s;}
+.input-wrap:focus-within{border-color:#333;}
 .client-row{display:flex;border-bottom:1px solid var(--border);}
-.client-input{flex:1;background:transparent;border:none;outline:none;padding:9px 14px;font-size:11px;font-family:'Space Mono',monospace;color:var(--muted);letter-spacing:0.06em;}
+.client-input{flex:1;background:transparent;border:none;outline:none;padding:8px 12px;font-size:10px;font-family:'Space Mono',monospace;color:var(--muted);letter-spacing:0.06em;}
 .client-input::placeholder{color:#2a2a2a;}
 .client-input:not(:last-child){border-right:1px solid var(--border);}
-textarea#mainInput{background:transparent;border:none;outline:none;padding:12px 14px 8px;font-size:13px;font-family:'Space Mono',monospace;color:var(--text);line-height:1.6;resize:none;min-height:64px;max-height:160px;width:100%;}
+textarea#mainInput{background:transparent;border:none;outline:none;padding:10px 12px 6px;font-size:12px;font-family:'Space Mono',monospace;color:var(--text);line-height:1.6;resize:none;min-height:56px;max-height:140px;width:100%;}
 textarea#mainInput::placeholder{color:#2a2a2a;}
-.input-bottom{display:flex;align-items:center;justify-content:space-between;padding:6px 10px;}
-.attach-btn{background:none;border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:10px;font-family:'Space Mono',monospace;padding:5px 10px;cursor:pointer;letter-spacing:0.06em;transition:all 0.2s;}
+.input-bottom{display:flex;align-items:center;justify-content:space-between;padding:5px 8px;}
+.attach-btn{background:none;border:1px solid var(--border);border-radius:6px;color:var(--muted);font-size:9px;font-family:'Space Mono',monospace;padding:4px 8px;cursor:pointer;letter-spacing:0.06em;transition:all 0.2s;}
 .attach-btn:hover{border-color:#444;color:#888;}
-.send-btn{background:var(--accent);border:none;border-radius:10px;color:#000;font-size:11px;font-family:'Unbounded',sans-serif;font-weight:700;padding:8px 18px;cursor:pointer;letter-spacing:0.06em;transition:all 0.15s;}
+.send-btn{background:var(--accent);border:none;border-radius:8px;color:#000;font-size:10px;font-family:'Unbounded',sans-serif;font-weight:700;padding:7px 16px;cursor:pointer;letter-spacing:0.06em;transition:all 0.15s;}
 .send-btn:hover{background:#d4ff4a;transform:scale(1.02);}
-.send-btn:active{transform:scale(0.98);}
 .send-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
-.file-preview{display:flex;gap:8px;flex-wrap:wrap;padding:6px 12px 0;}
-.file-chip{display:flex;align-items:center;gap:6px;background:#1a1a1a;border:1px solid var(--border);border-radius:8px;padding:3px 8px;font-size:10px;color:var(--muted);}
+.file-preview{display:flex;gap:6px;flex-wrap:wrap;padding:5px 10px 0;}
+.file-chip{display:flex;align-items:center;gap:5px;background:#1a1a1a;border:1px solid var(--border);border-radius:6px;padding:2px 7px;font-size:9px;color:var(--muted);}
 .file-chip .rx{cursor:pointer;color:#444;}
-.file-chip .rx:hover{color:#888;}
 #fileInput{display:none;}
-.user-badge{font-size:10px;color:var(--muted);letter-spacing:0.06em;}
-.user-badge span{color:var(--accent);}
 </style>
 </head>
 <body>
 
 <header>
   <div class="logo-area">
-    <svg width="42" height="42" viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="36" height="36" viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
       <ellipse cx="100" cy="70" rx="92" ry="62" stroke="#c6f135" stroke-width="9" fill="none"/>
       <text x="100" y="100" text-anchor="middle" font-family="Georgia,serif" font-size="72" font-weight="900" fill="#c6f135">mm</text>
     </svg>
@@ -91,10 +121,15 @@ textarea#mainInput::placeholder{color:#2a2a2a;}
       <div class="logo-sub">SHEETS BOT // INTERNAL TOOL</div>
     </div>
   </div>
-  <div id="headerRight" class="status-dot"><div class="dot"></div>ONLINE</div>
+  <div class="header-right" id="headerRight">
+    <div class="connected-badge" id="connectedBadge" style="display:none">
+      <div class="dot"></div>CONNECTED
+    </div>
+    <button class="signout-btn" id="signoutBtn" style="display:none" onclick="signOut()">ВЫЙТИ</button>
+  </div>
 </header>
 
-<!-- AUTH SCREEN -->
+<!-- AUTH -->
 <div class="auth-screen" id="authScreen">
   <svg viewBox="0 0 200 140" fill="none" width="60" xmlns="http://www.w3.org/2000/svg">
     <ellipse cx="100" cy="70" rx="92" ry="62" stroke="#c6f135" stroke-width="8" fill="none"/>
@@ -114,36 +149,19 @@ textarea#mainInput::placeholder{color:#2a2a2a;}
 </div>
 
 <!-- MAIN APP -->
-<div id="mainApp" style="display:none;flex:1;flex-direction:column;overflow:hidden;">
-  <div class="chat-wrap" id="chatWrap">
-    <div class="welcome" id="welcome">
-      <svg viewBox="0 0 200 140" fill="none" width="70" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="100" cy="70" rx="92" ry="62" stroke="#c6f135" stroke-width="8" fill="none"/>
-        <text x="100" y="100" text-anchor="middle" font-family="Georgia,serif" font-size="72" font-weight="900" fill="#c6f135">mm</text>
-      </svg>
-      <h2>FLYEST ART IN THE GAME</h2>
-      <p>Кидай данные о клиенте в любом виде — текст, скрины, что угодно. Бот разберёт и создаст таблицу в Google Drive.</p>
-      <div class="welcome-tags">
-        <div class="tag" onclick="quickFill('Набор со свечой, коробка крафт 100х100х200мм, 3200 руб/50шт, срок 7 рд')">→ пример: набор со свечой</div>
-        <div class="tag" onclick="quickFill('Набор: деревянный ящик 30х20х10, тишью 3 листа, лента атлас, 5500 руб/50шт, срок 10 рд')">→ пример: набор с едой</div>
-      </div>
+<div class="app" id="mainApp">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <button class="new-tab-btn" onclick="createTab()">+ НОВЫЙ КЛИЕНТ</button>
     </div>
+    <div class="tabs-list" id="tabsList"></div>
   </div>
 
-  <div class="input-area">
-    <div class="input-wrap">
-      <div class="client-row">
-        <input class="client-input" id="clientName" type="text" placeholder="ИМЯ КЛИЕНТА"/>
-        <input class="client-input" id="setName" type="text" placeholder="НАЗВАНИЕ НАБОРА"/>
-      </div>
-      <div class="file-preview" id="filePreview"></div>
-      <textarea id="mainInput" placeholder="Кидай данные о компонентах в любом виде..." rows="3"></textarea>
-      <div class="input-bottom">
-        <button class="attach-btn" onclick="document.getElementById('fileInput').click()">+ ФОТО / ФАЙЛ</button>
-        <button class="send-btn" id="sendBtn" onclick="handleSend()">СОЗДАТЬ ТАБЛИЦУ →</button>
-      </div>
+  <div class="main" id="mainContent">
+    <div class="no-tab-state" id="noTabState">
+      <h3>ВЫБЕРИ КЛИЕНТА</h3>
+      <p style="font-size:11px;color:var(--muted)">Или создай нового нажав кнопку слева</p>
     </div>
-    <input type="file" id="fileInput" accept="image/*" multiple onchange="handleFiles(this.files)"/>
   </div>
 </div>
 
@@ -154,117 +172,294 @@ const FOLDER_ID = "1ZU_RTGb8iCg86318JkCxdaHfZay-MaKz";
 const SCOPES = "https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive";
 
 let googleToken = null;
+let tokenExpiry = 0;
+let tokenClient = null;
+let tabs = [];
+let activeTabId = null;
 let attachedFiles = [];
 
-// ===== GOOGLE AUTH =====
-function signIn() {
-  const client = google.accounts.oauth2.initTokenClient({
+// ===== STORAGE =====
+function saveTabs() { localStorage.setItem('mm_tabs', JSON.stringify(tabs)); }
+function loadTabs() {
+  try { tabs = JSON.parse(localStorage.getItem('mm_tabs')) || []; } catch { tabs = []; }
+}
+
+// ===== AUTH =====
+function initGoogleAuth() {
+  tokenClient = google.accounts.oauth2.initTokenClient({
     client_id: GOOGLE_CLIENT_ID,
     scope: SCOPES,
     callback: (resp) => {
       if (resp.access_token) {
         googleToken = resp.access_token;
+        tokenExpiry = Date.now() + (resp.expires_in - 60) * 1000;
+        localStorage.setItem('mm_token', JSON.stringify({token: googleToken, expiry: tokenExpiry}));
         showApp();
       }
     }
   });
-  client.requestAccessToken();
+}
+
+function tryRestoreToken() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('mm_token'));
+    if (saved && saved.expiry > Date.now()) {
+      googleToken = saved.token;
+      tokenExpiry = saved.expiry;
+      return true;
+    }
+  } catch {}
+  return false;
+}
+
+async function ensureToken() {
+  if (googleToken && tokenExpiry > Date.now()) return;
+  return new Promise((resolve) => {
+    tokenClient.callback = (resp) => {
+      if (resp.access_token) {
+        googleToken = resp.access_token;
+        tokenExpiry = Date.now() + (resp.expires_in - 60) * 1000;
+        localStorage.setItem('mm_token', JSON.stringify({token: googleToken, expiry: tokenExpiry}));
+      }
+      resolve();
+    };
+    tokenClient.requestAccessToken({prompt: ''});
+  });
+}
+
+function signIn() { tokenClient.requestAccessToken({prompt: 'consent'}); }
+
+function signOut() {
+  google.accounts.oauth2.revoke(googleToken, () => {});
+  googleToken = null;
+  localStorage.removeItem('mm_token');
+  document.getElementById('authScreen').style.display = 'flex';
+  document.getElementById('mainApp').classList.remove('visible');
+  document.getElementById('connectedBadge').style.display = 'none';
+  document.getElementById('signoutBtn').style.display = 'none';
 }
 
 function showApp() {
   document.getElementById('authScreen').style.display = 'none';
-  const app = document.getElementById('mainApp');
-  app.style.display = 'flex';
-  app.style.flexDirection = 'column';
-  document.getElementById('headerRight').innerHTML = '<div class="dot"></div><span style="color:var(--accent)">✓</span> CONNECTED';
+  document.getElementById('mainApp').classList.add('visible');
+  document.getElementById('connectedBadge').style.display = 'flex';
+  document.getElementById('signoutBtn').style.display = 'block';
+  loadTabs();
+  renderSidebar();
+  if (tabs.length > 0) switchTab(tabs[0].id);
 }
 
-// ===== UI =====
-function quickFill(t){document.getElementById('mainInput').value=t;document.getElementById('mainInput').focus();}
+// ===== TABS =====
+function createTab() {
+  const name = prompt('Имя клиента:');
+  if (!name) return;
+  const tab = {
+    id: Date.now().toString(),
+    name: name.trim(),
+    setName: '',
+    messages: [],
+    createdAt: new Date().toLocaleDateString('ru-RU')
+  };
+  tabs.unshift(tab);
+  saveTabs();
+  renderSidebar();
+  switchTab(tab.id);
+}
 
-function handleFiles(files){
-  Array.from(files).forEach(f=>{
-    const r=new FileReader();
-    r.onload=e=>{attachedFiles.push({name:f.name,data:e.target.result,type:f.type});renderPreviews();};
+function deleteTab(id, e) {
+  e.stopPropagation();
+  if (!confirm('Удалить клиента?')) return;
+  tabs = tabs.filter(t => t.id !== id);
+  saveTabs();
+  renderSidebar();
+  if (activeTabId === id) {
+    activeTabId = null;
+    renderMain(null);
+  }
+}
+
+function switchTab(id) {
+  activeTabId = id;
+  renderSidebar();
+  const tab = tabs.find(t => t.id === id);
+  renderMain(tab);
+}
+
+function renderSidebar() {
+  const list = document.getElementById('tabsList');
+  list.innerHTML = tabs.map(t => `
+    <div class="tab-item ${t.id === activeTabId ? 'active' : ''}" onclick="switchTab('${t.id}')">
+      <div class="tab-name">${t.name}</div>
+      <div class="tab-meta">${t.createdAt} · ${t.messages.length} сообщ.</div>
+      <button class="tab-delete" onclick="deleteTab('${t.id}', event)">×</button>
+    </div>
+  `).join('');
+}
+
+function renderMain(tab) {
+  const main = document.getElementById('mainContent');
+  if (!tab) {
+    main.innerHTML = `<div class="no-tab-state"><h3>ВЫБЕРИ КЛИЕНТА</h3><p style="font-size:11px;color:var(--muted)">Или создай нового нажав кнопку слева</p></div>`;
+    return;
+  }
+
+  main.innerHTML = `
+    <div class="chat-wrap" id="chatWrap"></div>
+    <div class="input-area">
+      <div class="input-wrap">
+        <div class="client-row">
+          <input class="client-input" id="clientName" type="text" placeholder="ИМЯ КЛИЕНТА" value="${tab.name}" oninput="updateTabName(this.value)"/>
+          <input class="client-input" id="setName" type="text" placeholder="НАЗВАНИЕ НАБОРА" value="${tab.setName || ''}" oninput="updateSetName(this.value)"/>
+        </div>
+        <div class="file-preview" id="filePreview"></div>
+        <textarea id="mainInput" placeholder="Кидай данные о компонентах в любом виде..." rows="3"></textarea>
+        <div class="input-bottom">
+          <button class="attach-btn" onclick="document.getElementById('fileInput').click()">+ ФОТО / ФАЙЛ</button>
+          <button class="send-btn" id="sendBtn" onclick="handleSend()">СОЗДАТЬ ТАБЛИЦУ →</button>
+        </div>
+      </div>
+      <input type="file" id="fileInput" accept="image/*" multiple onchange="handleFiles(this.files)"/>
+    </div>`;
+
+  const wrap = document.getElementById('chatWrap');
+
+  if (tab.messages.length === 0) {
+    wrap.innerHTML = `
+      <div class="empty-state">
+        <h3>FLYEST ART IN THE GAME</h3>
+        <p>Кидай данные о компонентах в любом виде — текст, скрины. Бот разберёт и создаст таблицу.</p>
+        <div class="example-tags">
+          <div class="tag" onclick="quickFill('Коробка крафт 100х100х200мм, 3200 руб/50шт, срок 7 рд')">→ пример: коробка</div>
+          <div class="tag" onclick="quickFill('Тишью синяя 3 листа, лента атлас, 800 руб/50шт')">→ пример: тишью</div>
+        </div>
+      </div>`;
+  } else {
+    tab.messages.forEach(m => renderMessage(m.role, m.content, m.isHTML, false));
+    wrap.scrollTop = wrap.scrollHeight;
+  }
+
+  document.getElementById('mainInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); }
+  });
+}
+
+function updateTabName(val) {
+  const tab = tabs.find(t => t.id === activeTabId);
+  if (tab) { tab.name = val; saveTabs(); renderSidebar(); }
+}
+function updateSetName(val) {
+  const tab = tabs.find(t => t.id === activeTabId);
+  if (tab) { tab.setName = val; saveTabs(); }
+}
+
+// ===== MESSAGES =====
+function renderMessage(role, content, isHTML=false, save=true) {
+  const wrap = document.getElementById('chatWrap');
+  if (!wrap) return;
+
+  const empty = wrap.querySelector('.empty-state');
+  if (empty) empty.remove();
+
+  const div = document.createElement('div');
+  div.className = `msg ${role}`;
+  const label = document.createElement('div');
+  label.className = 'msg-label';
+  label.textContent = role === 'user' ? 'ВЫ' : 'MM BOT';
+  const bubble = document.createElement('div');
+  bubble.className = 'msg-bubble';
+  if (isHTML) bubble.innerHTML = content; else bubble.textContent = content;
+  div.appendChild(label); div.appendChild(bubble);
+  wrap.appendChild(div);
+  wrap.scrollTop = wrap.scrollHeight;
+
+  if (save && activeTabId) {
+    const tab = tabs.find(t => t.id === activeTabId);
+    if (tab) { tab.messages.push({role, content, isHTML}); saveTabs(); renderSidebar(); }
+  }
+}
+
+function addTyping() {
+  const wrap = document.getElementById('chatWrap');
+  if (!wrap) return;
+  const empty = wrap.querySelector('.empty-state');
+  if (empty) empty.remove();
+  const div = document.createElement('div');
+  div.className = 'msg bot'; div.id = 'typing';
+  div.innerHTML = '<div class="msg-label">MM BOT</div><div class="msg-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>';
+  wrap.appendChild(div); wrap.scrollTop = wrap.scrollHeight;
+}
+function removeTyping() { const t = document.getElementById('typing'); if (t) t.remove(); }
+
+// ===== HELPERS =====
+function quickFill(t) { const i = document.getElementById('mainInput'); if (i) { i.value = t; i.focus(); } }
+
+function handleFiles(files) {
+  Array.from(files).forEach(f => {
+    const r = new FileReader();
+    r.onload = e => { attachedFiles.push({name:f.name,data:e.target.result,type:f.type}); renderPreviews(); };
     r.readAsDataURL(f);
   });
-  document.getElementById('fileInput').value='';
+  document.getElementById('fileInput').value = '';
 }
-function renderPreviews(){
-  document.getElementById('filePreview').innerHTML=attachedFiles.map((f,i)=>
+function renderPreviews() {
+  const fp = document.getElementById('filePreview');
+  if (!fp) return;
+  fp.innerHTML = attachedFiles.map((f,i) =>
     `<div class="file-chip">${f.type.startsWith('image/')?'🖼':'📄'} ${f.name} <span class="rx" onclick="removeFile(${i})">×</span></div>`
   ).join('');
 }
-function removeFile(i){attachedFiles.splice(i,1);renderPreviews();}
-
-function addMsg(role,content,isHTML=false){
-  const w=document.getElementById('welcome');if(w)w.remove();
-  const wrap=document.getElementById('chatWrap');
-  const div=document.createElement('div');div.className=`msg ${role}`;
-  const label=document.createElement('div');label.className='msg-label';label.textContent=role==='user'?'ВЫ':'MM BOT';
-  const bubble=document.createElement('div');bubble.className='msg-bubble';
-  if(isHTML)bubble.innerHTML=content;else bubble.textContent=content;
-  div.appendChild(label);div.appendChild(bubble);wrap.appendChild(div);
-  wrap.scrollTop=wrap.scrollHeight;
-}
-function addTyping(){
-  const w=document.getElementById('welcome');if(w)w.remove();
-  const wrap=document.getElementById('chatWrap');
-  const div=document.createElement('div');div.className='msg bot';div.id='typing';
-  div.innerHTML='<div class="msg-label">MM BOT</div><div class="msg-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>';
-  wrap.appendChild(div);wrap.scrollTop=wrap.scrollHeight;
-}
-function removeTyping(){const t=document.getElementById('typing');if(t)t.remove();}
+function removeFile(i) { attachedFiles.splice(i,1); renderPreviews(); }
 
 // ===== CLAUDE =====
-async function callClaude(text,images){
-  const content=[];
-  images.filter(f=>f.type.startsWith('image/')).forEach(img=>{
+async function callClaude(text, images) {
+  const content = [];
+  images.filter(f => f.type.startsWith('image/')).forEach(img => {
     content.push({type:'image',source:{type:'base64',media_type:img.type,data:img.data.split(',')[1]}});
   });
-  content.push({type:'text',text:`Из данных ниже извлеки компоненты подарочного набора и верни ТОЛЬКО валидный JSON без пояснений и без markdown:
+  content.push({type:'text', text:`Из данных ниже извлеки компоненты подарочного набора и верни ТОЛЬКО валидный JSON без пояснений и markdown:
 {"components":[{"name":"название","desc":"спецификация","type":"Себес РФ","signal":число_или_null,"cost_per_unit":число_или_null,"deadline_signal":"7 р.д.","deadline_50":"10 р.д.","comment":"","supplier":""}]}
 
 Данные: ${text}`});
-  const r=await fetch(`${WORKER}?target=claude`,{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:1000,messages:[{role:'user',content}]})
+  const r = await fetch(`${WORKER}?target=claude`, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:1000,messages:[{role:'user',content}]})
   });
-  const d=await r.json();
-  if(d.error)throw new Error(d.error.message);
-  const raw=d.content?.map(c=>c.text||'').join('');
+  const d = await r.json();
+  if (d.error) throw new Error(d.error.message);
+  const raw = d.content?.map(c => c.text||'').join('');
   return JSON.parse(raw.replace(/```json|```/g,'').trim());
 }
 
-// ===== GOOGLE SHEETS (напрямую с токеном пользователя) =====
-async function createSheet(clientName,setName,comps){
-  const total=comps.reduce((s,c)=>s+(parseFloat(c.cost_per_unit)||0),0);
-  const rows=[
+// ===== GOOGLE SHEETS =====
+async function createSheet(clientName, setName, comps) {
+  await ensureToken();
+  const total = comps.reduce((s,c) => s+(parseFloat(c.cost_per_unit)||0), 0);
+  const rows = [
     ['','','','','','','','','Стоимость в руб/шт за ед (себес)','','','Сроки (обязательно в рабочих днях)','','',''],
     ['ID','Тип строки','Ссылка/Фото','Изделие / брендинг','Описание (спецификация)','Поставщик (если бланк)','Комментарии от ПД','Тип расчета','Сигнал','50 шт','Себест/шт (формула)','Сигнал','50 шт','Цена/шт','Итого'],
-    ...comps.map((c,i)=>[1,i===0?setName:'','',c.name,c.desc,c.supplier||'',c.comment||'',c.type||'Себес РФ',c.signal||'',c.cost_per_unit||'',i===0?total:'',c.deadline_signal||'',c.deadline_50||'','','']),
+    ...comps.map((c,i) => [1,i===0?setName:'','',c.name,c.desc,c.supplier||'',c.comment||'',c.type||'Себес РФ',c.signal||'',c.cost_per_unit||'',i===0?total:'',c.deadline_signal||'',c.deadline_50||'','','']),
     Array(15).fill(''),
     ['','Итого:','','','','','','','','','','','','','']
   ];
-  const date=new Date().toLocaleDateString('ru-RU');
-  const h={'Authorization':'Bearer '+googleToken,'Content-Type':'application/json'};
+  const date = new Date().toLocaleDateString('ru-RU');
+  const title = `${clientName}_${setName}_${date}`;
+  const h = {'Authorization':'Bearer '+googleToken,'Content-Type':'application/json'};
 
-  const r1=await fetch('https://sheets.googleapis.com/v4/spreadsheets',{
-    method:'POST',headers:h,
-    body:JSON.stringify({properties:{title:`${clientName}_${setName}_${date}`},sheets:[{properties:{title:'Спецификация'}}]})
+  const r1 = await fetch('https://sheets.googleapis.com/v4/spreadsheets', {
+    method:'POST', headers:h,
+    body: JSON.stringify({properties:{title},sheets:[{properties:{title:'Спецификация'}}]})
   });
-  const ss=await r1.json();
-  if(!ss.spreadsheetId)throw new Error(JSON.stringify(ss));
-  const id=ss.spreadsheetId;
+  const ss = await r1.json();
+  if (!ss.spreadsheetId) throw new Error(JSON.stringify(ss));
+  const id = ss.spreadsheetId;
 
-  await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${id}/values/Спецификация!A1?valueInputOption=USER_ENTERED`,{
-    method:'PUT',headers:h,body:JSON.stringify({values:rows})
+  await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${id}/values/Спецификация!A1?valueInputOption=USER_ENTERED`, {
+    method:'PUT', headers:h, body: JSON.stringify({values:rows})
   });
 
-  await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${id}:batchUpdate`,{
-    method:'POST',headers:h,
-    body:JSON.stringify({requests:[{
+  await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${id}:batchUpdate`, {
+    method:'POST', headers:h,
+    body: JSON.stringify({requests:[{
       repeatCell:{
         range:{sheetId:0,startRowIndex:0,endRowIndex:1000,startColumnIndex:0,endColumnIndex:15},
         cell:{userEnteredFormat:{wrapStrategy:'WRAP'}},
@@ -273,53 +468,67 @@ async function createSheet(clientName,setName,comps){
     }]})
   });
 
-  await fetch(`https://www.googleapis.com/drive/v3/files/${id}?addParents=${FOLDER_ID}&removeParents=root&fields=id`,{
-    method:'PATCH',headers:h,body:JSON.stringify({})
+  await fetch(`https://www.googleapis.com/drive/v3/files/${id}?addParents=${FOLDER_ID}&removeParents=root&fields=id`, {
+    method:'PATCH', headers:h, body: JSON.stringify({})
   });
 
   return `https://docs.google.com/spreadsheets/d/${id}`;
 }
 
-// ===== MAIN =====
-async function handleSend(){
-  const text=document.getElementById('mainInput').value.trim();
-  const clientName=document.getElementById('clientName').value.trim()||'Клиент';
-  const setName=document.getElementById('setName').value.trim()||'Набор';
-  if(!text&&attachedFiles.length===0)return;
-  if(!googleToken){addMsg('bot','Сначала войди через Google!');return;}
-  const btn=document.getElementById('sendBtn');btn.disabled=true;
-  let userMsg=text;
-  if(attachedFiles.length>0)userMsg+=(text?'\n':'')+attachedFiles.map(f=>`[${f.name}]`).join(' ');
-  addMsg('user',userMsg);
-  attachedFiles.filter(f=>f.type.startsWith('image/')).forEach(f=>{
-    const wrap=document.getElementById('chatWrap');
-    const div=document.createElement('div');div.className='msg user';
-    div.innerHTML=`<img class="msg-img" src="${f.data}"/>`;
-    wrap.appendChild(div);wrap.scrollTop=wrap.scrollHeight;
+// ===== SEND =====
+async function handleSend() {
+  const text = document.getElementById('mainInput')?.value.trim();
+  const clientName = document.getElementById('clientName')?.value.trim() || 'Клиент';
+  const setName = document.getElementById('setName')?.value.trim() || 'Набор';
+  if (!text && attachedFiles.length === 0) return;
+
+  const btn = document.getElementById('sendBtn');
+  if (btn) btn.disabled = true;
+
+  let userMsg = text;
+  if (attachedFiles.length > 0) userMsg += (text?'\n':'') + attachedFiles.map(f=>`[${f.name}]`).join(' ');
+  renderMessage('user', userMsg);
+
+  attachedFiles.filter(f => f.type.startsWith('image/')).forEach(f => {
+    const wrap = document.getElementById('chatWrap');
+    if (!wrap) return;
+    const div = document.createElement('div'); div.className = 'msg user';
+    div.innerHTML = `<img class="msg-img" src="${f.data}"/>`;
+    wrap.appendChild(div); wrap.scrollTop = wrap.scrollHeight;
   });
-  document.getElementById('mainInput').value='';
-  const files=[...attachedFiles];attachedFiles=[];renderPreviews();
+
+  if (document.getElementById('mainInput')) document.getElementById('mainInput').value = '';
+  const files = [...attachedFiles]; attachedFiles = []; renderPreviews();
   addTyping();
-  try{
-    const parsed=await callClaude(`Клиент: ${clientName}\nНабор: ${setName}\n${text}`,files);
+
+  try {
+    const parsed = await callClaude(`Клиент: ${clientName}\nНабор: ${setName}\n${text}`, files);
     removeTyping();
-    const comps=parsed.components||[];
-    if(comps.length===0)throw new Error('Не удалось распознать компоненты');
-    const summary=comps.map((c,i)=>`${i+1}. ${c.name}${c.signal?' — '+c.signal+' руб/50шт':''}${c.deadline_signal?', срок '+c.deadline_signal:''}`).join('\n');
-    addMsg('bot',`Распознал ${comps.length} компонент(а):\n\n${summary}\n\nСоздаю таблицу...`);
+    const comps = parsed.components || [];
+    if (comps.length === 0) throw new Error('Не удалось распознать компоненты');
+    const summary = comps.map((c,i) => `${i+1}. ${c.name}${c.signal?' — '+c.signal+' руб/50шт':''}${c.deadline_signal?', срок '+c.deadline_signal:''}`).join('\n');
+    renderMessage('bot', `Распознал ${comps.length} компонент(а):\n\n${summary}\n\nСоздаю таблицу...`);
     addTyping();
-    const link=await createSheet(clientName,setName,comps);
+    const link = await createSheet(clientName, setName, comps);
     removeTyping();
-    addMsg('bot',`Готово! Таблица создана:\n\n<a href="${link}" target="_blank">→ Открыть в Google Sheets</a>`,true);
-  }catch(e){
+    renderMessage('bot', `Готово! Таблица создана:\n\n<a href="${link}" target="_blank">→ Открыть в Google Sheets</a>`, true);
+  } catch(e) {
     removeTyping();
-    addMsg('bot','Ошибка: '+e.message);
+    renderMessage('bot', 'Ошибка: ' + e.message);
   }
-  btn.disabled=false;
+  if (btn) btn.disabled = false;
 }
 
-document.getElementById('mainInput').addEventListener('keydown',e=>{
-  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();handleSend();}
+// ===== INIT =====
+window.addEventListener('load', () => {
+  // Wait for Google GSI to load
+  const waitForGoogle = setInterval(() => {
+    if (typeof google !== 'undefined' && google.accounts) {
+      clearInterval(waitForGoogle);
+      initGoogleAuth();
+      if (tryRestoreToken()) showApp();
+    }
+  }, 100);
 });
 </script>
 </body>
