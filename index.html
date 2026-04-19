@@ -38,8 +38,8 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 
 /* SIDEBAR */
 .sidebar{width:220px;border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;}
-.sidebar-header{padding:12px;border-bottom:1px solid var(--border);}
-.new-tab-btn{width:100%;padding:8px;font-size:10px;font-family:'Unbounded',sans-serif;font-weight:700;letter-spacing:0.08em;background:var(--accent);color:#000;border:none;border-radius:8px;cursor:pointer;transition:all 0.15s;}
+.sidebar-header{padding:14px;border-bottom:1px solid var(--border);background:var(--bg);}
+.new-tab-btn{width:100%;padding:10px;font-size:10px;font-family:'Unbounded',sans-serif;font-weight:700;letter-spacing:0.08em;background:var(--accent);color:#000;border:none;border-radius:8px;cursor:pointer;transition:all 0.15s;}
 .new-tab-btn:hover{background:#d4ff4a;}
 .tabs-list{flex:1;overflow-y:auto;padding:8px;}
 .tab-item{padding:10px 10px;border-radius:8px;cursor:pointer;margin-bottom:4px;border:1px solid transparent;transition:all 0.15s;position:relative;}
@@ -158,10 +158,7 @@ textarea#mainInput::placeholder{color:#2a2a2a;}
   </div>
 
   <div class="main" id="mainContent">
-    <div class="no-tab-state" id="noTabState">
-      <h3>ВЫБЕРИ КЛИЕНТА</h3>
-      <p style="font-size:11px;color:var(--muted)">Или создай нового нажав кнопку слева</p>
-    </div>
+    <div class="no-tab-state" id="noTabState"><h3>ВЫБЕРИ КЛИЕНТА</h3><p style="font-size:11px;color:var(--muted)">Или создай нового нажав кнопку слева</p></div>
   </div>
 </div>
 
@@ -462,8 +459,8 @@ async function createSheet(clientName, setName, comps) {
     body: JSON.stringify({requests:[{
       repeatCell:{
         range:{sheetId:0,startRowIndex:0,endRowIndex:1000,startColumnIndex:0,endColumnIndex:15},
-        cell:{userEnteredFormat:{wrapStrategy:'WRAP'}},
-        fields:'userEnteredFormat.wrapStrategy'
+        cell:{userEnteredFormat:{wrapStrategy:'WRAP',verticalAlignment:'TOP'}},
+        fields:'userEnteredFormat(wrapStrategy,verticalAlignment)'
       }
     }]})
   });
