@@ -7,22 +7,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Unbounded:wght@400;700;900&display=swap" rel="stylesheet">
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
-:root{--bg:#080808;--surface:#111;--border:#222;--accent:#c6f135;--text:#fff;--muted:#555;--radius:16px;}
+:root{--bg:#080808;--surface:#111;--border:#222;--accent:#c6f135;--text:#fff;--muted:#555;--radius:14px;}
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;overflow:hidden;}
 body{background:var(--bg);color:var(--text);font-family:'Space Mono',monospace;display:flex;flex-direction:column;height:100vh;}
 
-/* HEADER */
-header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid var(--border);flex-shrink:0;}
+header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid var(--border);flex-shrink:0;min-height:56px;}
 .logo-area{display:flex;align-items:center;gap:12px;}
 .logo-text{font-family:'Unbounded',sans-serif;font-weight:900;font-size:13px;letter-spacing:0.05em;color:var(--accent);line-height:1.1;}
 .logo-sub{font-size:8px;color:var(--muted);letter-spacing:0.15em;margin-top:2px;}
-.header-right{display:flex;align-items:center;gap:12px;}
-.connected-badge{font-size:10px;color:var(--accent);letter-spacing:0.08em;display:flex;align-items:center;gap:6px;}
-.connected-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;}
+.header-right{display:flex;align-items:center;gap:10px;}
+.badge{font-size:10px;color:var(--accent);letter-spacing:0.08em;display:flex;align-items:center;gap:6px;}
+.badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
-.signout-btn{font-size:10px;color:var(--muted);background:none;border:1px solid var(--border);border-radius:6px;padding:3px 8px;cursor:pointer;font-family:'Space Mono',monospace;letter-spacing:0.06em;}
-.signout-btn:hover{color:#fff;border-color:#444;}
+.btn-sm{font-size:10px;color:var(--muted);background:none;border:1px solid var(--border);border-radius:6px;padding:3px 8px;cursor:pointer;font-family:'Space Mono',monospace;letter-spacing:0.05em;}
+.btn-sm:hover{color:#fff;border-color:#444;}
 
 /* AUTH */
 .auth-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:20px;padding:40px;text-align:center;}
@@ -30,42 +29,41 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 .auth-screen p{font-size:12px;color:var(--muted);line-height:1.8;max-width:320px;}
 .google-btn{display:flex;align-items:center;gap:10px;background:#fff;color:#000;border:none;border-radius:10px;padding:12px 24px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Space Mono',monospace;transition:all 0.2s;}
 .google-btn:hover{transform:scale(1.02);}
-.google-btn svg{width:18px;height:18px;}
+.google-btn svg{width:18px;height:18px;flex-shrink:0;}
 
-/* MAIN LAYOUT */
-.app{display:none;flex:1;overflow:hidden;flex-direction:row;}
-.app.visible{display:flex;}
+/* LAYOUT */
+.app{display:none;flex:1;overflow:hidden;}
+.app.visible{display:flex;flex-direction:row;}
 
 /* SIDEBAR */
-.sidebar{width:220px;border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;}
-.sidebar-header{padding:14px;border-bottom:1px solid var(--border);background:var(--bg);}
-.new-tab-btn{width:100%;padding:10px;font-size:10px;font-family:'Unbounded',sans-serif;font-weight:700;letter-spacing:0.08em;background:var(--accent);color:#000;border:none;border-radius:8px;cursor:pointer;transition:all 0.15s;}
-.new-tab-btn:hover{background:#d4ff4a;}
-.tabs-list{flex:1;overflow-y:auto;padding:8px;}
-.tab-item{padding:10px 10px;border-radius:8px;cursor:pointer;margin-bottom:4px;border:1px solid transparent;transition:all 0.15s;position:relative;}
-.tab-item:hover{background:var(--surface);border-color:var(--border);}
-.tab-item.active{background:var(--surface);border-color:#333;}
-.tab-name{font-size:11px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px;}
-.tab-meta{font-size:9px;color:var(--muted);letter-spacing:0.06em;}
-.tab-delete{position:absolute;top:8px;right:8px;font-size:12px;color:var(--muted);opacity:0;cursor:pointer;background:none;border:none;line-height:1;}
-.tab-item:hover .tab-delete{opacity:1;}
-.tab-delete:hover{color:#e05;}
+.sidebar{width:200px;min-width:200px;border-right:1px solid var(--border);display:flex;flex-direction:column;background:var(--bg);}
+.sidebar-top{padding:12px;border-bottom:1px solid var(--border);}
+.new-btn{width:100%;padding:9px;font-size:10px;font-family:'Unbounded',sans-serif;font-weight:700;letter-spacing:0.08em;background:var(--accent);color:#000;border:none;border-radius:8px;cursor:pointer;transition:all 0.15s;}
+.new-btn:hover{background:#d4ff4a;}
+.tabs{flex:1;overflow-y:auto;padding:6px;}
+.tab{padding:9px 10px;border-radius:8px;cursor:pointer;margin-bottom:3px;border:1px solid transparent;transition:all 0.15s;position:relative;}
+.tab:hover{background:var(--surface);border-color:var(--border);}
+.tab.active{background:#161616;border-color:#333;}
+.tab-name{font-size:11px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px;}
+.tab-meta{font-size:9px;color:var(--muted);}
+.tab-del{position:absolute;top:7px;right:8px;font-size:13px;color:#333;opacity:0;cursor:pointer;background:none;border:none;line-height:1;padding:0;}
+.tab:hover .tab-del{opacity:1;}
+.tab-del:hover{color:#e05;}
 
-/* MAIN CONTENT */
-.main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
-
-/* CHAT */
-.chat-wrap{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;}
+.chat-wrap{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
 .chat-wrap::-webkit-scrollbar{width:3px;}
 .chat-wrap::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
-.msg{max-width:640px;display:flex;flex-direction:column;gap:5px;animation:fadeUp 0.3s ease;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.msg{max-width:620px;display:flex;flex-direction:column;gap:4px;animation:fadeUp 0.25s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .msg.user{align-self:flex-end;align-items:flex-end;}
 .msg.bot{align-self:flex-start;align-items:flex-start;}
-.msg-label{font-size:9px;letter-spacing:0.12em;color:var(--muted);padding:0 4px;}
-.msg-bubble{padding:12px 16px;border-radius:14px;font-size:12px;line-height:1.7;white-space:pre-wrap;word-break:break-word;}
-.msg.user .msg-bubble{background:#161616;border:1px solid var(--border);border-bottom-right-radius:3px;color:#ccc;}
-.msg.bot .msg-bubble{background:#0f1a00;border:1px solid #1e2e00;border-bottom-left-radius:3px;color:var(--accent);}
+.msg-label{font-size:9px;letter-spacing:0.1em;color:var(--muted);padding:0 4px;}
+.msg-bubble{padding:11px 15px;border-radius:13px;font-size:12px;line-height:1.7;white-space:pre-wrap;word-break:break-word;}
+.msg.user .msg-bubble{background:#1a1a1a;border:1px solid var(--border);border-bottom-right-radius:3px;color:#ccc;}
+.msg.bot .msg-bubble{background:#0a1500;border:1px solid #1a2800;border-bottom-left-radius:3px;color:var(--accent);}
 .msg-bubble a{color:var(--accent);text-decoration:underline;word-break:break-all;}
 .msg-img{max-width:200px;border-radius:8px;border:1px solid var(--border);margin-top:4px;}
 .typing-dots{display:flex;gap:4px;align-items:center;padding:4px 0;}
@@ -74,45 +72,48 @@ header{display:flex;align-items:center;justify-content:space-between;padding:12p
 .typing-dots span:nth-child(3){animation-delay:0.4s}
 @keyframes bounce{0%,80%,100%{transform:scale(0.6);opacity:0.4}40%{transform:scale(1);opacity:1}}
 
-/* EMPTY STATE */
-.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:12px;text-align:center;padding:40px;}
-.empty-state h3{font-family:'Unbounded',sans-serif;font-size:14px;font-weight:700;color:var(--accent);}
-.empty-state p{font-size:11px;color:var(--muted);line-height:1.8;max-width:300px;}
-.example-tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:8px;}
-.tag{font-size:9px;letter-spacing:0.06em;padding:4px 10px;border:1px solid var(--border);border-radius:100px;color:var(--muted);cursor:pointer;transition:all 0.2s;}
-.tag:hover{border-color:var(--accent);color:var(--accent);}
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:12px;text-align:center;padding:40px;color:var(--muted);}
+.empty h3{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;color:var(--accent);}
+.empty p{font-size:11px;line-height:1.8;max-width:300px;}
+.etags{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:6px;}
+.etag{font-size:9px;padding:4px 10px;border:1px solid var(--border);border-radius:100px;color:var(--muted);cursor:pointer;transition:all 0.2s;letter-spacing:0.05em;}
+.etag:hover{border-color:var(--accent);color:var(--accent);}
 
-/* NO TAB STATE */
-.no-tab-state{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:12px;text-align:center;padding:40px;}
-.no-tab-state h3{font-family:'Unbounded',sans-serif;font-size:14px;color:var(--muted);}
+.nosel{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:8px;color:var(--muted);text-align:center;}
+.nosel h3{font-family:'Unbounded',sans-serif;font-size:12px;color:#333;}
+
+/* Table link bar */
+.table-bar{padding:8px 20px;border-bottom:1px solid var(--border);font-size:10px;color:var(--muted);display:none;align-items:center;gap:8px;flex-shrink:0;}
+.table-bar.visible{display:flex;}
+.table-bar a{color:var(--accent);text-decoration:none;letter-spacing:0.05em;}
+.table-bar a:hover{text-decoration:underline;}
 
 /* INPUT */
-.input-area{flex-shrink:0;border-top:1px solid var(--border);padding:12px 20px 14px;}
-.input-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);display:flex;flex-direction:column;transition:border-color 0.2s;}
+.input-area{flex-shrink:0;border-top:1px solid var(--border);padding:10px 16px 12px;}
+.input-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);display:flex;flex-direction:column;}
 .input-wrap:focus-within{border-color:#333;}
 .client-row{display:flex;border-bottom:1px solid var(--border);}
-.client-input{flex:1;background:transparent;border:none;outline:none;padding:8px 12px;font-size:10px;font-family:'Space Mono',monospace;color:var(--muted);letter-spacing:0.06em;}
-.client-input::placeholder{color:#2a2a2a;}
-.client-input:not(:last-child){border-right:1px solid var(--border);}
-textarea#mainInput{background:transparent;border:none;outline:none;padding:10px 12px 6px;font-size:12px;font-family:'Space Mono',monospace;color:var(--text);line-height:1.6;resize:none;min-height:56px;max-height:140px;width:100%;}
-textarea#mainInput::placeholder{color:#2a2a2a;}
-.input-bottom{display:flex;align-items:center;justify-content:space-between;padding:5px 8px;}
-.attach-btn{background:none;border:1px solid var(--border);border-radius:6px;color:var(--muted);font-size:9px;font-family:'Space Mono',monospace;padding:4px 8px;cursor:pointer;letter-spacing:0.06em;transition:all 0.2s;}
-.attach-btn:hover{border-color:#444;color:#888;}
-.send-btn{background:var(--accent);border:none;border-radius:8px;color:#000;font-size:10px;font-family:'Unbounded',sans-serif;font-weight:700;padding:7px 16px;cursor:pointer;letter-spacing:0.06em;transition:all 0.15s;}
-.send-btn:hover{background:#d4ff4a;transform:scale(1.02);}
-.send-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
-.file-preview{display:flex;gap:6px;flex-wrap:wrap;padding:5px 10px 0;}
-.file-chip{display:flex;align-items:center;gap:5px;background:#1a1a1a;border:1px solid var(--border);border-radius:6px;padding:2px 7px;font-size:9px;color:var(--muted);}
-.file-chip .rx{cursor:pointer;color:#444;}
-#fileInput{display:none;}
+.ci{flex:1;background:transparent;border:none;outline:none;padding:7px 11px;font-size:10px;font-family:'Space Mono',monospace;color:var(--muted);letter-spacing:0.05em;}
+.ci::placeholder{color:#2a2a2a;}
+.ci:not(:last-child){border-right:1px solid var(--border);}
+textarea#mi{background:transparent;border:none;outline:none;padding:9px 11px 6px;font-size:12px;font-family:'Space Mono',monospace;color:var(--text);line-height:1.6;resize:none;min-height:52px;max-height:130px;width:100%;}
+textarea#mi::placeholder{color:#2a2a2a;}
+.input-bottom{display:flex;align-items:center;justify-content:space-between;padding:4px 7px;}
+.ab{background:none;border:1px solid var(--border);border-radius:6px;color:var(--muted);font-size:9px;font-family:'Space Mono',monospace;padding:3px 7px;cursor:pointer;}
+.ab:hover{border-color:#444;color:#888;}
+.sb{background:var(--accent);border:none;border-radius:7px;color:#000;font-size:10px;font-family:'Unbounded',sans-serif;font-weight:700;padding:6px 14px;cursor:pointer;letter-spacing:0.06em;transition:all 0.15s;}
+.sb:hover{background:#d4ff4a;transform:scale(1.02);}
+.sb:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
+.fp{display:flex;gap:6px;flex-wrap:wrap;padding:4px 9px 0;}
+.fc{display:flex;align-items:center;gap:4px;background:#1a1a1a;border:1px solid var(--border);border-radius:6px;padding:2px 6px;font-size:9px;color:var(--muted);}
+.fc .rx{cursor:pointer;color:#444;}
+#fi{display:none;}
 </style>
 </head>
 <body>
-
 <header>
   <div class="logo-area">
-    <svg width="36" height="36" viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="34" height="34" viewBox="0 0 200 140" fill="none">
       <ellipse cx="100" cy="70" rx="92" ry="62" stroke="#c6f135" stroke-width="9" fill="none"/>
       <text x="100" y="100" text-anchor="middle" font-family="Georgia,serif" font-size="72" font-weight="900" fill="#c6f135">mm</text>
     </svg>
@@ -121,411 +122,378 @@ textarea#mainInput::placeholder{color:#2a2a2a;}
       <div class="logo-sub">SHEETS BOT // INTERNAL TOOL</div>
     </div>
   </div>
-  <div class="header-right" id="headerRight">
-    <div class="connected-badge" id="connectedBadge" style="display:none">
-      <div class="dot"></div>CONNECTED
-    </div>
-    <button class="signout-btn" id="signoutBtn" style="display:none" onclick="signOut()">ВЫЙТИ</button>
+  <div class="header-right">
+    <div class="badge" id="badge" style="display:none"><div class="dot"></div>CONNECTED</div>
+    <button class="btn-sm" id="signoutBtn" style="display:none" onclick="signOut()">ВЫЙТИ</button>
   </div>
 </header>
 
-<!-- AUTH -->
 <div class="auth-screen" id="authScreen">
-  <svg viewBox="0 0 200 140" fill="none" width="60" xmlns="http://www.w3.org/2000/svg">
-    <ellipse cx="100" cy="70" rx="92" ry="62" stroke="#c6f135" stroke-width="8" fill="none"/>
-    <text x="100" y="100" text-anchor="middle" font-family="Georgia,serif" font-size="72" font-weight="900" fill="#c6f135">mm</text>
-  </svg>
+  <svg viewBox="0 0 200 140" fill="none" width="56"><ellipse cx="100" cy="70" rx="92" ry="62" stroke="#c6f135" stroke-width="8" fill="none"/><text x="100" y="100" text-anchor="middle" font-family="Georgia,serif" font-size="72" font-weight="900" fill="#c6f135">mm</text></svg>
   <h2>ВОЙДИ ЧТОБЫ НАЧАТЬ</h2>
   <p>Авторизуйся через Google — бот получит доступ к Drive и будет создавать таблицы автоматически.</p>
   <button class="google-btn" onclick="signIn()">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-    </svg>
+    <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
     Войти через Google
   </button>
 </div>
 
-<!-- MAIN APP -->
-<div class="app" id="mainApp">
+<div class="app" id="app">
   <div class="sidebar">
-    <div class="sidebar-header">
-      <button class="new-tab-btn" onclick="createTab()">+ НОВЫЙ КЛИЕНТ</button>
+    <div class="sidebar-top">
+      <button class="new-btn" onclick="newClient()">+ НОВЫЙ КЛИЕНТ</button>
     </div>
-    <div class="tabs-list" id="tabsList"></div>
+    <div class="tabs" id="tabs"></div>
   </div>
-
-  <div class="main" id="mainContent">
-    <div class="no-tab-state" id="noTabState"><h3>ВЫБЕРИ КЛИЕНТА</h3><p style="font-size:11px;color:var(--muted)">Или создай нового нажав кнопку слева</p></div>
+  <div class="main" id="main">
+    <div class="nosel"><h3>← ВЫБЕРИ КЛИЕНТА</h3></div>
   </div>
 </div>
 
 <script>
-const WORKER = "https://odd-star-18f8.moneymerchprojects.workers.dev";
-const GOOGLE_CLIENT_ID = "313296848617-7r9ri5vee3gibbqep92g73di2rsgtv62.apps.googleusercontent.com";
-const FOLDER_ID = "1ZU_RTGb8iCg86318JkCxdaHfZay-MaKz";
-const SCOPES = "https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive";
+const WORKER="https://odd-star-18f8.moneymerchprojects.workers.dev";
+const CLIENT_ID="313296848617-7r9ri5vee3gibbqep92g73di2rsgtv62.apps.googleusercontent.com";
+const FOLDER_ID="1ZU_RTGb8iCg86318JkCxdaHfZay-MaKz";
+const SCOPES="https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive";
 
-let googleToken = null;
-let tokenExpiry = 0;
-let tokenClient = null;
-let tabs = [];
-let activeTabId = null;
-let attachedFiles = [];
+let gToken=null, tokenExp=0, tokenClient=null;
+let clients=[], activeId=null, files=[];
 
-// ===== STORAGE =====
-function saveTabs() { localStorage.setItem('mm_tabs', JSON.stringify(tabs)); }
-function loadTabs() {
-  try { tabs = JSON.parse(localStorage.getItem('mm_tabs')) || []; } catch { tabs = []; }
-}
+// STORAGE
+function save(){localStorage.setItem('mm_clients',JSON.stringify(clients));}
+function load(){try{clients=JSON.parse(localStorage.getItem('mm_clients'))||[];}catch{clients=[];}}
 
-// ===== AUTH =====
-function initGoogleAuth() {
-  tokenClient = google.accounts.oauth2.initTokenClient({
-    client_id: GOOGLE_CLIENT_ID,
-    scope: SCOPES,
-    callback: (resp) => {
-      if (resp.access_token) {
-        googleToken = resp.access_token;
-        tokenExpiry = Date.now() + (resp.expires_in - 60) * 1000;
-        localStorage.setItem('mm_token', JSON.stringify({token: googleToken, expiry: tokenExpiry}));
+// AUTH
+function initAuth(){
+  tokenClient=google.accounts.oauth2.initTokenClient({
+    client_id:CLIENT_ID, scope:SCOPES,
+    callback:(r)=>{
+      if(r.access_token){
+        gToken=r.access_token;
+        tokenExp=Date.now()+(r.expires_in-60)*1000;
+        localStorage.setItem('mm_tok',JSON.stringify({t:gToken,e:tokenExp}));
         showApp();
       }
     }
   });
 }
 
-function tryRestoreToken() {
-  try {
-    const saved = JSON.parse(localStorage.getItem('mm_token'));
-    if (saved && saved.expiry > Date.now()) {
-      googleToken = saved.token;
-      tokenExpiry = saved.expiry;
-      return true;
-    }
-  } catch {}
+function tryRestore(){
+  try{
+    const s=JSON.parse(localStorage.getItem('mm_tok'));
+    if(s&&s.e>Date.now()){gToken=s.t;tokenExp=s.e;return true;}
+  }catch{}
   return false;
 }
 
-async function ensureToken() {
-  if (googleToken && tokenExpiry > Date.now()) return;
-  return new Promise((resolve) => {
-    tokenClient.callback = (resp) => {
-      if (resp.access_token) {
-        googleToken = resp.access_token;
-        tokenExpiry = Date.now() + (resp.expires_in - 60) * 1000;
-        localStorage.setItem('mm_token', JSON.stringify({token: googleToken, expiry: tokenExpiry}));
-      }
-      resolve();
+async function ensureToken(){
+  if(gToken&&tokenExp>Date.now())return;
+  return new Promise(res=>{
+    tokenClient.callback=(r)=>{
+      if(r.access_token){gToken=r.access_token;tokenExp=Date.now()+(r.expires_in-60)*1000;localStorage.setItem('mm_tok',JSON.stringify({t:gToken,e:tokenExp}));}
+      res();
     };
-    tokenClient.requestAccessToken({prompt: ''});
+    tokenClient.requestAccessToken({prompt:''});
   });
 }
 
-function signIn() { tokenClient.requestAccessToken({prompt: 'consent'}); }
-
-function signOut() {
-  google.accounts.oauth2.revoke(googleToken, () => {});
-  googleToken = null;
-  localStorage.removeItem('mm_token');
-  document.getElementById('authScreen').style.display = 'flex';
-  document.getElementById('mainApp').classList.remove('visible');
-  document.getElementById('connectedBadge').style.display = 'none';
-  document.getElementById('signoutBtn').style.display = 'none';
+function signIn(){tokenClient.requestAccessToken({prompt:'consent'});}
+function signOut(){
+  if(gToken)google.accounts.oauth2.revoke(gToken,()=>{});
+  gToken=null;localStorage.removeItem('mm_tok');
+  document.getElementById('authScreen').style.display='flex';
+  document.getElementById('app').classList.remove('visible');
+  document.getElementById('badge').style.display='none';
+  document.getElementById('signoutBtn').style.display='none';
 }
 
-function showApp() {
-  document.getElementById('authScreen').style.display = 'none';
-  document.getElementById('mainApp').classList.add('visible');
-  document.getElementById('connectedBadge').style.display = 'flex';
-  document.getElementById('signoutBtn').style.display = 'block';
-  loadTabs();
+function showApp(){
+  document.getElementById('authScreen').style.display='none';
+  document.getElementById('app').classList.add('visible');
+  document.getElementById('badge').style.display='flex';
+  document.getElementById('signoutBtn').style.display='block';
+  load();
   renderSidebar();
-  if (tabs.length > 0) switchTab(tabs[0].id);
+  if(clients.length>0)switchClient(clients[0].id);
 }
 
-// ===== TABS =====
-function createTab() {
-  const name = prompt('Имя клиента:');
-  if (!name) return;
-  const tab = {
-    id: Date.now().toString(),
-    name: name.trim(),
-    setName: '',
-    messages: [],
-    createdAt: new Date().toLocaleDateString('ru-RU')
-  };
-  tabs.unshift(tab);
-  saveTabs();
-  renderSidebar();
-  switchTab(tab.id);
+// CLIENTS
+function newClient(){
+  const name=prompt('Имя клиента:');
+  if(!name||!name.trim())return;
+  const c={id:Date.now().toString(),name:name.trim(),setName:'',messages:[],sheetId:null,sheetUrl:null,created:new Date().toLocaleDateString('ru-RU')};
+  clients.unshift(c);save();renderSidebar();switchClient(c.id);
 }
 
-function deleteTab(id, e) {
+function delClient(id,e){
   e.stopPropagation();
-  if (!confirm('Удалить клиента?')) return;
-  tabs = tabs.filter(t => t.id !== id);
-  saveTabs();
-  renderSidebar();
-  if (activeTabId === id) {
-    activeTabId = null;
-    renderMain(null);
-  }
+  if(!confirm('Удалить клиента?'))return;
+  clients=clients.filter(c=>c.id!==id);save();renderSidebar();
+  if(activeId===id){activeId=null;document.getElementById('main').innerHTML='<div class="nosel"><h3>← ВЫБЕРИ КЛИЕНТА</h3></div>';}
 }
 
-function switchTab(id) {
-  activeTabId = id;
+function switchClient(id){
+  activeId=id;
   renderSidebar();
-  const tab = tabs.find(t => t.id === id);
-  renderMain(tab);
+  renderClient(clients.find(c=>c.id===id));
 }
 
-function renderSidebar() {
-  const list = document.getElementById('tabsList');
-  list.innerHTML = tabs.map(t => `
-    <div class="tab-item ${t.id === activeTabId ? 'active' : ''}" onclick="switchTab('${t.id}')">
-      <div class="tab-name">${t.name}</div>
-      <div class="tab-meta">${t.createdAt} · ${t.messages.length} сообщ.</div>
-      <button class="tab-delete" onclick="deleteTab('${t.id}', event)">×</button>
+function renderSidebar(){
+  document.getElementById('tabs').innerHTML=clients.map(c=>`
+    <div class="tab ${c.id===activeId?'active':''}" onclick="switchClient('${c.id}')">
+      <div class="tab-name">${c.name}${c.setName?' · '+c.setName:''}</div>
+      <div class="tab-meta">${c.created} · ${c.messages.length} сообщ.</div>
+      <button class="tab-del" onclick="delClient('${c.id}',event)">×</button>
+    </div>`).join('');
+}
+
+function renderClient(c){
+  if(!c)return;
+  const main=document.getElementById('main');
+  main.innerHTML=`
+    <div class="table-bar ${c.sheetUrl?'visible':''}" id="tbar">
+      ТАБЛИЦА: <a href="${c.sheetUrl||'#'}" target="_blank" id="tlink">${c.sheetUrl?'→ Открыть в Google Sheets':''}</a>
     </div>
-  `).join('');
-}
-
-function renderMain(tab) {
-  const main = document.getElementById('mainContent');
-  if (!tab) {
-    main.innerHTML = `<div class="no-tab-state"><h3>ВЫБЕРИ КЛИЕНТА</h3><p style="font-size:11px;color:var(--muted)">Или создай нового нажав кнопку слева</p></div>`;
-    return;
-  }
-
-  main.innerHTML = `
-    <div class="chat-wrap" id="chatWrap"></div>
+    <div class="chat-wrap" id="cw"></div>
     <div class="input-area">
       <div class="input-wrap">
         <div class="client-row">
-          <input class="client-input" id="clientName" type="text" placeholder="ИМЯ КЛИЕНТА" value="${tab.name}" oninput="updateTabName(this.value)"/>
-          <input class="client-input" id="setName" type="text" placeholder="НАЗВАНИЕ НАБОРА" value="${tab.setName || ''}" oninput="updateSetName(this.value)"/>
+          <input class="ci" id="cn" placeholder="ИМЯ КЛИЕНТА" value="${c.name}" oninput="updName(this.value)"/>
+          <input class="ci" id="sn" placeholder="НАЗВАНИЕ НАБОРА" value="${c.setName||''}" oninput="updSet(this.value)"/>
         </div>
-        <div class="file-preview" id="filePreview"></div>
-        <textarea id="mainInput" placeholder="Кидай данные о компонентах в любом виде..." rows="3"></textarea>
+        <div class="fp" id="fp"></div>
+        <textarea id="mi" placeholder="Кидай данные о компонентах или напиши что изменить в таблице..." rows="3"></textarea>
         <div class="input-bottom">
-          <button class="attach-btn" onclick="document.getElementById('fileInput').click()">+ ФОТО / ФАЙЛ</button>
-          <button class="send-btn" id="sendBtn" onclick="handleSend()">СОЗДАТЬ ТАБЛИЦУ →</button>
+          <button class="ab" onclick="document.getElementById('fi').click()">+ ФОТО</button>
+          <button class="sb" id="sb" onclick="send()">СОЗДАТЬ / ОБНОВИТЬ →</button>
         </div>
       </div>
-      <input type="file" id="fileInput" accept="image/*" multiple onchange="handleFiles(this.files)"/>
+      <input type="file" id="fi" accept="image/*" multiple onchange="addFiles(this.files)"/>
     </div>`;
 
-  const wrap = document.getElementById('chatWrap');
-
-  if (tab.messages.length === 0) {
-    wrap.innerHTML = `
-      <div class="empty-state">
-        <h3>FLYEST ART IN THE GAME</h3>
-        <p>Кидай данные о компонентах в любом виде — текст, скрины. Бот разберёт и создаст таблицу.</p>
-        <div class="example-tags">
-          <div class="tag" onclick="quickFill('Коробка крафт 100х100х200мм, 3200 руб/50шт, срок 7 рд')">→ пример: коробка</div>
-          <div class="tag" onclick="quickFill('Тишью синяя 3 листа, лента атлас, 800 руб/50шт')">→ пример: тишью</div>
-        </div>
-      </div>`;
+  const cw=document.getElementById('cw');
+  if(c.messages.length===0){
+    cw.innerHTML=`<div class="empty"><h3>FLYEST ART IN THE GAME</h3><p>Кидай данные о компонентах в любом виде. Или напиши что изменить в уже созданной таблице.</p><div class="etags"><div class="etag" onclick="qf('Коробка крафт 100х100х200мм, 3200 руб/50шт, срок 7 рд')">→ коробка</div><div class="etag" onclick="qf('Тишью синяя 3 листа 30х30см, 800 руб/50шт, срок 1 рд')">→ тишью</div></div></div>`;
   } else {
-    tab.messages.forEach(m => renderMessage(m.role, m.content, m.isHTML, false));
-    wrap.scrollTop = wrap.scrollHeight;
+    c.messages.forEach(m=>addBubble(m.role,m.content,m.isHTML,false));
+    cw.scrollTop=cw.scrollHeight;
   }
 
-  document.getElementById('mainInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); }
+  document.getElementById('mi').addEventListener('keydown',e=>{
+    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}
   });
 }
 
-function updateTabName(val) {
-  const tab = tabs.find(t => t.id === activeTabId);
-  if (tab) { tab.name = val; saveTabs(); renderSidebar(); }
-}
-function updateSetName(val) {
-  const tab = tabs.find(t => t.id === activeTabId);
-  if (tab) { tab.setName = val; saveTabs(); }
-}
+function updName(v){const c=clients.find(x=>x.id===activeId);if(c){c.name=v;save();renderSidebar();}}
+function updSet(v){const c=clients.find(x=>x.id===activeId);if(c){c.setName=v;save();renderSidebar();}}
 
-// ===== MESSAGES =====
-function renderMessage(role, content, isHTML=false, save=true) {
-  const wrap = document.getElementById('chatWrap');
-  if (!wrap) return;
-
-  const empty = wrap.querySelector('.empty-state');
-  if (empty) empty.remove();
-
-  const div = document.createElement('div');
-  div.className = `msg ${role}`;
-  const label = document.createElement('div');
-  label.className = 'msg-label';
-  label.textContent = role === 'user' ? 'ВЫ' : 'MM BOT';
-  const bubble = document.createElement('div');
-  bubble.className = 'msg-bubble';
-  if (isHTML) bubble.innerHTML = content; else bubble.textContent = content;
-  div.appendChild(label); div.appendChild(bubble);
-  wrap.appendChild(div);
-  wrap.scrollTop = wrap.scrollHeight;
-
-  if (save && activeTabId) {
-    const tab = tabs.find(t => t.id === activeTabId);
-    if (tab) { tab.messages.push({role, content, isHTML}); saveTabs(); renderSidebar(); }
-  }
+// MESSAGES
+function addBubble(role,content,isHTML=false,persist=true){
+  const cw=document.getElementById('cw');if(!cw)return;
+  const empty=cw.querySelector('.empty');if(empty)empty.remove();
+  const div=document.createElement('div');div.className=`msg ${role}`;
+  const lbl=document.createElement('div');lbl.className='msg-label';lbl.textContent=role==='user'?'ВЫ':'MM BOT';
+  const bub=document.createElement('div');bub.className='msg-bubble';
+  if(isHTML)bub.innerHTML=content;else bub.textContent=content;
+  div.appendChild(lbl);div.appendChild(bub);cw.appendChild(div);cw.scrollTop=cw.scrollHeight;
+  if(persist&&activeId){const c=clients.find(x=>x.id===activeId);if(c){c.messages.push({role,content,isHTML});save();renderSidebar();}}
 }
 
-function addTyping() {
-  const wrap = document.getElementById('chatWrap');
-  if (!wrap) return;
-  const empty = wrap.querySelector('.empty-state');
-  if (empty) empty.remove();
-  const div = document.createElement('div');
-  div.className = 'msg bot'; div.id = 'typing';
-  div.innerHTML = '<div class="msg-label">MM BOT</div><div class="msg-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>';
-  wrap.appendChild(div); wrap.scrollTop = wrap.scrollHeight;
+function typing(){
+  const cw=document.getElementById('cw');if(!cw)return;
+  const empty=cw.querySelector('.empty');if(empty)empty.remove();
+  const div=document.createElement('div');div.className='msg bot';div.id='typ';
+  div.innerHTML='<div class="msg-label">MM BOT</div><div class="msg-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>';
+  cw.appendChild(div);cw.scrollTop=cw.scrollHeight;
 }
-function removeTyping() { const t = document.getElementById('typing'); if (t) t.remove(); }
+function untyping(){const t=document.getElementById('typ');if(t)t.remove();}
 
-// ===== HELPERS =====
-function quickFill(t) { const i = document.getElementById('mainInput'); if (i) { i.value = t; i.focus(); } }
+function qf(t){const mi=document.getElementById('mi');if(mi){mi.value=t;mi.focus();}}
 
-function handleFiles(files) {
-  Array.from(files).forEach(f => {
-    const r = new FileReader();
-    r.onload = e => { attachedFiles.push({name:f.name,data:e.target.result,type:f.type}); renderPreviews(); };
+// FILES
+function addFiles(fs){
+  Array.from(fs).forEach(f=>{
+    const r=new FileReader();
+    r.onload=e=>{files.push({name:f.name,data:e.target.result,type:f.type});renderFiles();};
     r.readAsDataURL(f);
   });
-  document.getElementById('fileInput').value = '';
+  document.getElementById('fi').value='';
 }
-function renderPreviews() {
-  const fp = document.getElementById('filePreview');
-  if (!fp) return;
-  fp.innerHTML = attachedFiles.map((f,i) =>
-    `<div class="file-chip">${f.type.startsWith('image/')?'🖼':'📄'} ${f.name} <span class="rx" onclick="removeFile(${i})">×</span></div>`
-  ).join('');
+function renderFiles(){
+  const fp=document.getElementById('fp');if(!fp)return;
+  fp.innerHTML=files.map((f,i)=>`<div class="fc">${f.type.startsWith('image/')?'🖼':'📄'} ${f.name} <span class="rx" onclick="removeFile(${i})">×</span></div>`).join('');
 }
-function removeFile(i) { attachedFiles.splice(i,1); renderPreviews(); }
+function removeFile(i){files.splice(i,1);renderFiles();}
 
-// ===== CLAUDE =====
-async function callClaude(text, images) {
-  const content = [];
-  images.filter(f => f.type.startsWith('image/')).forEach(img => {
+// CLAUDE
+async function claude(text,imgs){
+  const content=[];
+  imgs.filter(f=>f.type.startsWith('image/')).forEach(img=>{
     content.push({type:'image',source:{type:'base64',media_type:img.type,data:img.data.split(',')[1]}});
   });
-  content.push({type:'text', text:`Из данных ниже извлеки компоненты подарочного набора и верни ТОЛЬКО валидный JSON без пояснений и markdown:
+  content.push({type:'text',text});
+  const r=await fetch(`${WORKER}?target=claude`,{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:2000,messages:[{role:'user',content}]})
+  });
+  const d=await r.json();
+  if(d.error)throw new Error(d.error.message);
+  return d.content?.map(c=>c.text||'').join('');
+}
+
+// SHEETS
+async function applyWrap(id){
+  const h={'Authorization':'Bearer '+gToken,'Content-Type':'application/json'};
+  await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${id}:batchUpdate`,{
+    method:'POST',headers:h,
+    body:JSON.stringify({requests:[{repeatCell:{
+      range:{sheetId:0,startRowIndex:0,endRowIndex:1000,startColumnIndex:0,endColumnIndex:20},
+      cell:{userEnteredFormat:{wrapStrategy:'WRAP',verticalAlignment:'TOP'}},
+      fields:'userEnteredFormat.wrapStrategy,userEnteredFormat.verticalAlignment'
+    }}]})
+  });
+}
+
+async function createSheet(clientName,setName,rows){
+  await ensureToken();
+  const h={'Authorization':'Bearer '+gToken,'Content-Type':'application/json'};
+  const date=new Date().toLocaleDateString('ru-RU');
+  const title=`${clientName}_${setName}_${date}`;
+  const r1=await fetch('https://sheets.googleapis.com/v4/spreadsheets',{
+    method:'POST',headers:h,
+    body:JSON.stringify({properties:{title},sheets:[{properties:{title:'Спецификация'}}]})
+  });
+  const ss=await r1.json();
+  if(!ss.spreadsheetId)throw new Error(JSON.stringify(ss));
+  const id=ss.spreadsheetId;
+  await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${id}/values/Спецификация!A1?valueInputOption=USER_ENTERED`,{
+    method:'PUT',headers:h,body:JSON.stringify({values:rows})
+  });
+  await applyWrap(id);
+  await fetch(`https://www.googleapis.com/drive/v3/files/${id}?addParents=${FOLDER_ID}&removeParents=root&fields=id`,{
+    method:'PATCH',headers:h,body:JSON.stringify({})
+  });
+  return {id,url:`https://docs.google.com/spreadsheets/d/${id}`};
+}
+
+async function updateSheet(sheetId,rows){
+  await ensureToken();
+  const h={'Authorization':'Bearer '+gToken,'Content-Type':'application/json'};
+  await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Спецификация!A1?valueInputOption=USER_ENTERED`,{
+    method:'PUT',headers:h,body:JSON.stringify({values:rows})
+  });
+  await applyWrap(sheetId);
+}
+
+// MAIN SEND
+async function send(){
+  const text=document.getElementById('mi')?.value.trim();
+  const cn=document.getElementById('cn')?.value.trim()||'Клиент';
+  const sn=document.getElementById('sn')?.value.trim()||'Набор';
+  if(!text&&files.length===0)return;
+
+  const client=clients.find(c=>c.id===activeId);
+  if(!client)return;
+
+  const sb=document.getElementById('sb');if(sb)sb.disabled=true;
+  let userMsg=text;
+  if(files.length>0)userMsg+=(text?'\n':'')+files.map(f=>`[${f.name}]`).join(' ');
+  addBubble('user',userMsg);
+
+  files.filter(f=>f.type.startsWith('image/')).forEach(f=>{
+    const cw=document.getElementById('cw');if(!cw)return;
+    const div=document.createElement('div');div.className='msg user';
+    div.innerHTML=`<img class="msg-img" src="${f.data}"/>`;
+    cw.appendChild(div);cw.scrollTop=cw.scrollHeight;
+  });
+
+  if(document.getElementById('mi'))document.getElementById('mi').value='';
+  const curFiles=[...files];files=[];renderFiles();
+  typing();
+
+  try{
+    // Determine if this is an edit request or new data
+    const isEdit = client.sheetId && text && /измен|поменя|обнов|исправ|удал|добав|замен/i.test(text);
+
+    if(isEdit){
+      // Get current sheet data
+      await ensureToken();
+      const h={'Authorization':'Bearer '+gToken};
+      const r=await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${client.sheetId}/values/Спецификация!A1:O100`,{headers:h});
+      const d=await r.json();
+      const currentData=JSON.stringify(d.values||[]);
+
+      const prompt=`Ты редактируешь Google Таблицу спецификаций. Текущие данные (JSON массив строк):
+${currentData}
+
+Запрос пользователя: "${text}"
+
+Верни ТОЛЬКО обновлённый JSON массив строк (тот же формат что и входные данные, все строки включая заголовки). Без пояснений, без markdown.`;
+
+      const raw=await claude(prompt,curFiles);
+      const newRows=JSON.parse(raw.replace(/```json|```/g,'').trim());
+      await updateSheet(client.sheetId,newRows);
+      untyping();
+      addBubble('bot',`Готово! Таблица обновлена:\n\n<a href="${client.sheetUrl}" target="_blank">→ Открыть в Google Sheets</a>`,true);
+
+    } else {
+      // Parse new components
+      const prompt=`Из данных ниже извлеки компоненты подарочного набора и верни ТОЛЬКО валидный JSON без пояснений и markdown:
 {"components":[{"name":"название","desc":"спецификация","type":"Себес РФ","signal":число_или_null,"cost_per_unit":число_или_null,"deadline_signal":"7 р.д.","deadline_50":"10 р.д.","comment":"","supplier":""}]}
 
-Данные: ${text}`});
-  const r = await fetch(`${WORKER}?target=claude`, {
-    method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:1000,messages:[{role:'user',content}]})
-  });
-  const d = await r.json();
-  if (d.error) throw new Error(d.error.message);
-  const raw = d.content?.map(c => c.text||'').join('');
-  return JSON.parse(raw.replace(/```json|```/g,'').trim());
-}
+Клиент: ${cn}
+Набор: ${sn}
+Данные: ${text}`;
 
-// ===== GOOGLE SHEETS =====
-async function createSheet(clientName, setName, comps) {
-  await ensureToken();
-  const total = comps.reduce((s,c) => s+(parseFloat(c.cost_per_unit)||0), 0);
-  const rows = [
-    ['','','','','','','','','Стоимость в руб/шт за ед (себес)','','','Сроки (обязательно в рабочих днях)','','',''],
-    ['ID','Тип строки','Ссылка/Фото','Изделие / брендинг','Описание (спецификация)','Поставщик (если бланк)','Комментарии от ПД','Тип расчета','Сигнал','50 шт','Себест/шт (формула)','Сигнал','50 шт','Цена/шт','Итого'],
-    ...comps.map((c,i) => [1,i===0?setName:'','',c.name,c.desc,c.supplier||'',c.comment||'',c.type||'Себес РФ',c.signal||'',c.cost_per_unit||'',i===0?total:'',c.deadline_signal||'',c.deadline_50||'','','']),
-    Array(15).fill(''),
-    ['','Итого:','','','','','','','','','','','','','']
-  ];
-  const date = new Date().toLocaleDateString('ru-RU');
-  const title = `${clientName}_${setName}_${date}`;
-  const h = {'Authorization':'Bearer '+googleToken,'Content-Type':'application/json'};
+      const raw=await claude(prompt,curFiles);
+      const parsed=JSON.parse(raw.replace(/```json|```/g,'').trim());
+      untyping();
 
-  const r1 = await fetch('https://sheets.googleapis.com/v4/spreadsheets', {
-    method:'POST', headers:h,
-    body: JSON.stringify({properties:{title},sheets:[{properties:{title:'Спецификация'}}]})
-  });
-  const ss = await r1.json();
-  if (!ss.spreadsheetId) throw new Error(JSON.stringify(ss));
-  const id = ss.spreadsheetId;
+      const comps=parsed.components||[];
+      if(comps.length===0)throw new Error('Не удалось распознать компоненты');
 
-  await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${id}/values/Спецификация!A1?valueInputOption=USER_ENTERED`, {
-    method:'PUT', headers:h, body: JSON.stringify({values:rows})
-  });
+      const total=comps.reduce((s,c)=>s+(parseFloat(c.cost_per_unit)||0),0);
+      const rows=[
+        ['','','','','','','','','Стоимость в руб/шт за ед (себес)','','','Сроки (обязательно в рабочих днях)','','',''],
+        ['ID','Тип строки','Ссылка/Фото','Изделие / брендинг','Описание (спецификация)','Поставщик (если бланк)','Комментарии от ПД','Тип расчета','Сигнал','50 шт','Себест/шт (формула)','Сигнал','50 шт','Цена/шт','Итого'],
+        ...comps.map((c,i)=>[1,i===0?sn:'','',c.name,c.desc,c.supplier||'',c.comment||'',c.type||'Себес РФ',c.signal||'',c.cost_per_unit||'',i===0?total:'',c.deadline_signal||'',c.deadline_50||'','','']),
+        Array(15).fill(''),
+        ['','Итого:','','','','','','','','','','','','','']
+      ];
 
-  await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${id}:batchUpdate`, {
-    method:'POST', headers:h,
-    body: JSON.stringify({requests:[{
-      repeatCell:{
-        range:{sheetId:0,startRowIndex:0,endRowIndex:1000,startColumnIndex:0,endColumnIndex:15},
-        cell:{userEnteredFormat:{wrapStrategy:'WRAP',verticalAlignment:'TOP'}},
-        fields:'userEnteredFormat(wrapStrategy,verticalAlignment)'
-      }
-    }]})
-  });
+      const summary=comps.map((c,i)=>`${i+1}. ${c.name}${c.signal?' — '+c.signal+' руб/50шт':''}${c.deadline_signal?', срок '+c.deadline_signal:''}`).join('\n');
+      addBubble('bot',`Распознал ${comps.length} компонент(а):\n\n${summary}\n\nСоздаю таблицу...`);
+      typing();
 
-  await fetch(`https://www.googleapis.com/drive/v3/files/${id}?addParents=${FOLDER_ID}&removeParents=root&fields=id`, {
-    method:'PATCH', headers:h, body: JSON.stringify({})
-  });
+      const {id,url}=await createSheet(cn,sn,rows);
+      client.sheetId=id;client.sheetUrl=url;
+      client.name=cn;client.setName=sn;
+      save();renderSidebar();
 
-  return `https://docs.google.com/spreadsheets/d/${id}`;
-}
+      // Show table bar
+      const tbar=document.getElementById('tbar');
+      const tlink=document.getElementById('tlink');
+      if(tbar&&tlink){tbar.classList.add('visible');tlink.href=url;tlink.textContent='→ Открыть в Google Sheets';}
 
-// ===== SEND =====
-async function handleSend() {
-  const text = document.getElementById('mainInput')?.value.trim();
-  const clientName = document.getElementById('clientName')?.value.trim() || 'Клиент';
-  const setName = document.getElementById('setName')?.value.trim() || 'Набор';
-  if (!text && attachedFiles.length === 0) return;
-
-  const btn = document.getElementById('sendBtn');
-  if (btn) btn.disabled = true;
-
-  let userMsg = text;
-  if (attachedFiles.length > 0) userMsg += (text?'\n':'') + attachedFiles.map(f=>`[${f.name}]`).join(' ');
-  renderMessage('user', userMsg);
-
-  attachedFiles.filter(f => f.type.startsWith('image/')).forEach(f => {
-    const wrap = document.getElementById('chatWrap');
-    if (!wrap) return;
-    const div = document.createElement('div'); div.className = 'msg user';
-    div.innerHTML = `<img class="msg-img" src="${f.data}"/>`;
-    wrap.appendChild(div); wrap.scrollTop = wrap.scrollHeight;
-  });
-
-  if (document.getElementById('mainInput')) document.getElementById('mainInput').value = '';
-  const files = [...attachedFiles]; attachedFiles = []; renderPreviews();
-  addTyping();
-
-  try {
-    const parsed = await callClaude(`Клиент: ${clientName}\nНабор: ${setName}\n${text}`, files);
-    removeTyping();
-    const comps = parsed.components || [];
-    if (comps.length === 0) throw new Error('Не удалось распознать компоненты');
-    const summary = comps.map((c,i) => `${i+1}. ${c.name}${c.signal?' — '+c.signal+' руб/50шт':''}${c.deadline_signal?', срок '+c.deadline_signal:''}`).join('\n');
-    renderMessage('bot', `Распознал ${comps.length} компонент(а):\n\n${summary}\n\nСоздаю таблицу...`);
-    addTyping();
-    const link = await createSheet(clientName, setName, comps);
-    removeTyping();
-    renderMessage('bot', `Готово! Таблица создана:\n\n<a href="${link}" target="_blank">→ Открыть в Google Sheets</a>`, true);
-  } catch(e) {
-    removeTyping();
-    renderMessage('bot', 'Ошибка: ' + e.message);
-  }
-  if (btn) btn.disabled = false;
-}
-
-// ===== INIT =====
-window.addEventListener('load', () => {
-  // Wait for Google GSI to load
-  const waitForGoogle = setInterval(() => {
-    if (typeof google !== 'undefined' && google.accounts) {
-      clearInterval(waitForGoogle);
-      initGoogleAuth();
-      if (tryRestoreToken()) showApp();
+      untyping();
+      addBubble('bot',`Готово! Таблица создана:\n\n<a href="${url}" target="_blank">→ Открыть в Google Sheets</a>`,true);
     }
-  }, 100);
+  }catch(e){
+    untyping();
+    addBubble('bot','Ошибка: '+e.message);
+  }
+  if(sb)sb.disabled=false;
+}
+
+// INIT
+window.addEventListener('load',()=>{
+  const wait=setInterval(()=>{
+    if(typeof google!=='undefined'&&google.accounts){
+      clearInterval(wait);
+      initAuth();
+      if(tryRestore())showApp();
+    }
+  },100);
 });
 </script>
 </body>
